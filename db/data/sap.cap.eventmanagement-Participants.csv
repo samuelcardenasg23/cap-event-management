@@ -9,3 +9,4 @@ ID,FirstName,LastName,Email,Phone,BusinessPartnerID,Event_ID,createdAt,createdBy
 8,David,Lee,david.lee@example.com,+65-555-0108,BP008,5,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
 9,Emma,Wilson,emma.w@example.com,+44-555-0109,BP009,1,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
 10,Luis,Martinez,luis.m@example.com,+52-555-0110,BP010,2,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
+11,Sam,Wise,sam.wise@example.com,+57-333-222,BP011,1,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin

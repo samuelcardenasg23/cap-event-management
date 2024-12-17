@@ -1,0 +1,73 @@
+### Variables
+@host = http://localhost:4004
+
+### Get all events
+GET {{host}}/odata/v4/event-catalog/Events
+
+### Get specific event
+GET {{host}}/odata/v4/event-catalog/Events(1)
+
+### Get Event with participants
+GET {{host}}/odata/v4/event-catalog/Events(1)?$expand=Participants
+
+### Create new event
+POST {{host}}/odata/v4/event-catalog/Events
+content-type: application/json
+
+{
+    "ID": 6,
+    "Name": "New SAP Event",
+    "StartDate": "2024-12-17",
+    "EndDate": "2024-12-20",
+    "Location": "Paris, France",
+    "Description": "New event description",
+    "IsActive": true,
+    "IsCancelled": false
+}
+
+### Update event
+PATCH {{host}}/odata/v4/event-catalog/Events(6)
+content-type: application/json
+
+{
+    "Description": "Updated event description"
+}
+
+### Delete event
+DELETE {{host}}/odata/v4/event-catalog/Events(6)
+
+
+
+### Get all participants
+GET {{host}}/odata/v4/event-catalog/Participants
+
+### Get specific participant
+GET {{host}}/odata/v4/event-catalog/Participants(11)
+
+### Get participant with event
+GET {{host}}/odata/v4/event-catalog/Participants(11)?$expand=Event
+
+### Create new participant
+POST {{host}}/odata/v4/event-catalog/Participants
+content-type: application/json
+
+{
+    "ID": 12,
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "Email": "jane.doe@example.com",
+    "Phone": "+1-555-0111",
+    "BusinessPartnerID": "BP012",
+    "Event_ID": 6
+}
+
+### Update participant
+PATCH {{host}}/odata/v4/event-catalog/Participants(12)
+content-type: application/json
+
+{
+    "Phone": "+1-444-3333"
+}
+
+### Delete participant
+DELETE {{host}}/odata/v4/event-catalog/Participants(12)
