@@ -1,0 +1,6 @@
+ID,Name,StartDate,EndDate,Location,Description,IsActive,IsCancelled,CancellationReason,createdAt,createdBy,modifiedAt,modifiedBy
+1,SAP TechEd 2024,2024-10-15,2024-10-17,"Las Vegas, USA","Annual SAP Technology Conference featuring workshops, lectures and networking events",true,false,,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
+2,CAP Workshop,2024-04-01,2024-04-03,"Berlin, Germany","Hands-on workshop for SAP Cloud Application Programming",true,false,,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
+3,SAPUI5 Fundamentals,2024-05-15,2024-05-16,"Madrid, Spain","Introduction to SAPUI5 development and Fiori design principles",true,false,,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
+4,BTP Summit 2024,2024-06-20,2024-06-22,"Singapore","Comprehensive overview of SAP Business Technology Platform",false,true,"Venue unavailable",2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
+5,Cloud Integration Days,2024-08-10,2024-08-12,"Toronto, Canada","Deep dive into SAP integration solutions and best practices",true,false,,2024-03-20T10:00:00Z,admin,2024-03-20T10:00:00Z,admin
