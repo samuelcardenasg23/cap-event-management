@@ -1,4 +1,4 @@
-# Scenario:EventManagementSystem
+# Scenario: EventManagementSystem
 
 **Objective**
 
