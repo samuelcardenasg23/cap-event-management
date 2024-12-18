@@ -1,6 +1,6 @@
 using {sap.cap.eventmanagement as my} from '../db/schema';
 
-service EventCatalog @(path: '/event-catalog') {
+service EventCatalog {
     // BOUND actions - tied to specific Events
     entity Events       as projection on my.Events
         actions {
@@ -41,3 +41,10 @@ service EventCatalog @(path: '/event-catalog') {
     @cds.doc: 'Get all participants for a specific event'
     function getEventParticipants(eventId : Integer) returns array of Participants;
 }
+
+// using {sap.cap.eventmanagement as my} from '../db/schema';
+
+// service EventCatalog {
+//     entity Events       as projection on my.Events;
+//     entity Participants as projection on my.Participants;
+// }

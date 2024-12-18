@@ -5,39 +5,73 @@ module.exports = cds.service.impl(async function () {
   const { Events, Participants } = this.entities;
 
   // BOUND actions for Events
-  this.on("cancelEvent", Events, async (req) => {
-    const { reason } = req.data;
-    const { ID } = req.params[0];
+  this.on("cancelEvent", async (req) => {
+    try {
+      const ID = req.params[0];
+      const { reason } = req.data;
 
-    const tx = cds.transaction(req);
-    const result = await tx.run(
-      UPDATE(Events)
-        .set({
-          IsCancelled: true,
-          IsActive: false,
-          CancellationReason: reason,
-        })
-        .where({ ID: ID })
-    );
+      // Check if event exists
+      const event = await SELECT.one.from(Events).where({ ID: ID });
 
-    return result;
+      if (!event) {
+        return req.error(404, `Event with ID ${ID} not found`);
+      }
+
+      if (event.IsCancelled) {
+        return req.error(400, `Event ${ID} is already cancelled`);
+      }
+
+      // Perform the update
+      const tx = cds.transaction(req);
+      await tx.run(
+        UPDATE(Events)
+          .set({
+            IsCancelled: true,
+            IsActive: false,
+            CancellationReason: reason,
+          })
+          .where({ ID: ID })
+      );
+
+      // Return updated event
+      return await SELECT.one.from(Events).where({ ID: ID });
+    } catch (error) {
+      return req.error(500, `Error cancelling event: ${error.message}`);
+    }
   });
 
-  this.on("reopenEvent", Events, async (req) => {
-    const { ID } = req.params[0];
+  this.on("reopenEvent", async (req) => {
+    try {
+      const ID = req.params[0];
 
-    const tx = cds.transaction(req);
-    const result = await tx.run(
-      UPDATE(Events)
-        .set({
-          IsCancelled: false,
-          IsActive: true,
-          CancellationReason: null,
-        })
-        .where({ ID: ID })
-    );
+      // Check if event exists
+      const event = await SELECT.one.from(Events).where({ ID: ID });
 
-    return result;
+      if (!event) {
+        return req.error(404, `Event with ID ${ID} not found`);
+      }
+
+      if (!event.IsCancelled) {
+        return req.error(400, `Event ${ID} is not cancelled`);
+      }
+
+      // Perform the update
+      const tx = cds.transaction(req);
+      await tx.run(
+        UPDATE(Events)
+          .set({
+            IsCancelled: false,
+            IsActive: true,
+            CancellationReason: null,
+          })
+          .where({ ID: ID })
+      );
+
+      // Return updated event
+      return await SELECT.one.from(Events).where({ ID: ID });
+    } catch (error) {
+      return req.error(500, `Error reopening event: ${error.message}`);
+    }
   });
 
   // BOUND actions for Participants

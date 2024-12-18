@@ -1,14 +1,18 @@
 ### Variables
 @host = http://localhost:4004
+@eventId = 1
+@participantId = 1
+
+### =================== EVENTS ===================
 
 ### Get all events
 GET {{host}}/odata/v4/event-catalog/Events
 
 ### Get specific event
-GET {{host}}/odata/v4/event-catalog/Events(1)
+GET {{host}}/odata/v4/event-catalog/Events({{eventId}})
 
 ### Get Event with participants
-GET {{host}}/odata/v4/event-catalog/Events(1)?$expand=Participants
+GET {{host}}/odata/v4/event-catalog/Events({{eventId}})?$expand=Participants
 
 ### Create new event
 POST {{host}}/odata/v4/event-catalog/Events
@@ -25,27 +29,27 @@ content-type: application/json
     "IsCancelled": false
 }
 
-### Update event
-PATCH {{host}}/odata/v4/event-catalog/Events(6)
+### Cancel Event (Bound Action)
+POST {{host}}/odata/v4/event-catalog/Events({{eventId}})/cancelEvent
 content-type: application/json
 
 {
-    "Description": "Updated event description"
+    "reason": "Cancelled because of bad weather"
 }
 
-### Delete event
-DELETE {{host}}/odata/v4/event-catalog/Events(6)
+### Reopen Event (Bound Action)
+POST {{host}}/odata/v4/event-catalog/Events({{eventId}})/reopenEvent
 
-
+### =================== PARTICIPANTS ===================
 
 ### Get all participants
 GET {{host}}/odata/v4/event-catalog/Participants
 
 ### Get specific participant
-GET {{host}}/odata/v4/event-catalog/Participants(11)
+GET {{host}}/odata/v4/event-catalog/Participants({{participantId}})
 
 ### Get participant with event
-GET {{host}}/odata/v4/event-catalog/Participants(11)?$expand=Event
+GET {{host}}/odata/v4/event-catalog/Participants({{participantId}})?$expand=Event
 
 ### Create new participant
 POST {{host}}/odata/v4/event-catalog/Participants
@@ -58,16 +62,55 @@ content-type: application/json
     "Email": "jane.doe@example.com",
     "Phone": "+1-555-0111",
     "BusinessPartnerID": "BP012",
-    "Event_ID": 6
+    "Event_ID": 1
 }
 
-### Update participant
-PATCH {{host}}/odata/v4/event-catalog/Participants(12)
+### Fetch Participant Details (Bound Action)
+POST {{host}}/odata/v4/event-catalog/Participants({{participantId}})/fetchParticipantDetails
+
+### =================== UNBOUND ACTIONS/FUNCTIONS ===================
+
+### Register Participant (Unbound Action)
+POST {{host}}/odata/v4/event-catalog/registerParticipant
 content-type: application/json
 
 {
-    "Phone": "+1-444-3333"
+    "eventId": 1,
+    "participantData": {
+        "ID": 13,
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Email": "john.smith@example.com",
+        "Phone": "+1-555-0222",
+        "BusinessPartnerID": "BP013"
+    }
 }
 
-### Delete participant
-DELETE {{host}}/odata/v4/event-catalog/Participants(12)
+### Get Event Participants (Unbound Function)
+GET {{host}}/odata/v4/event-catalog/getEventParticipants(eventId={{eventId}})
+
+### =================== ERROR CASES ===================
+
+### Try to cancel already cancelled event
+POST {{host}}/odata/v4/event-catalog/Events({{eventId}})/cancelEvent
+content-type: application/json
+
+{
+    "reason": "Already cancelled event"
+}
+
+### Try to register participant for cancelled event
+POST {{host}}/odata/v4/event-catalog/registerParticipant
+content-type: application/json
+
+{
+    "eventId": 4,
+    "participantData": {
+        "ID": 14,
+        "FirstName": "Error",
+        "LastName": "Test",
+        "Email": "error.test@example.com",
+        "Phone": "+1-555-0333",
+        "BusinessPartnerID": "BP014"
+    }
+}
