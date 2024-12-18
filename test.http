@@ -1,6 +1,6 @@
 ### Variables
 @host = http://localhost:4004
-@eventId = 2
+@eventId = 1
 @participantId = 1
 
 ### =================== EVENTS ===================
@@ -12,7 +12,7 @@ GET {{host}}/odata/v4/event-catalog/Events
 GET {{host}}/odata/v4/event-catalog/Events({{eventId}})
 
 ### Get Event with participants
-GET {{host}}/odata/v4/event-catalog/Events({{eventId}})?$expand=Participants
+GET {{host}}/odata/v4/event-catalog/Events({{eventId}})?$expand=registrations
 
 ### Create new event
 POST {{host}}/odata/v4/event-catalog/Events
@@ -49,7 +49,7 @@ GET {{host}}/odata/v4/event-catalog/Participants
 GET {{host}}/odata/v4/event-catalog/Participants({{participantId}})
 
 ### Get participant with event
-GET {{host}}/odata/v4/event-catalog/Participants({{participantId}})?$expand=Event
+GET {{host}}/odata/v4/event-catalog/Participants({{participantId}})?$expand=registrations
 
 ### Create new participant
 POST {{host}}/odata/v4/event-catalog/Participants
