@@ -97,19 +97,42 @@ module.exports = cds.service.impl(async function () {
     try {
       // First, verify the event exists and is active
       const event = await SELECT.one.from(Events).where({ ID: eventId });
-      if (!event) req.error(404, `Event ${eventId} does not exist`);
-      if (!event.IsActive) req.error(400, `Event ${eventId} is not active`);
-      if (event.IsCancelled) req.error(400, `Event ${eventId} is cancelled`);
+      if (!event) {
+        return req.error(404, `Event ${eventId} does not exist`);
+      }
+      if (!event.IsActive) {
+        return req.error(400, `Event ${eventId} is not active`);
+      }
+      if (event.IsCancelled) {
+        return req.error(400, `Event ${eventId} is cancelled`);
+      }
 
-      // Create the participant
-      const participant = await INSERT.into(Participants).entries({
-        ...participantData,
+      // Check if participant is already registered for this event
+      const existingParticipant = await SELECT.one.from(Participants).where({
+        Email: participantData.Email,
         Event_ID: eventId,
       });
 
-      return participant;
+      if (existingParticipant) {
+        return req.error(
+          400,
+          `Participant with email ${participantData.Email} is already registered in Event ${eventId}`
+        );
+      }
+
+      // Create the participant
+      const tx = cds.transaction(req);
+      const participant = await tx.run(
+        INSERT.into(Participants).entries({
+          ...participantData,
+          Event_ID: eventId,
+        })
+      );
+
+      // Return the created participant
+      return await SELECT.one.from(Participants).where({ ID: participant.ID });
     } catch (error) {
-      req.error(500, error.message);
+      return req.error(500, `Error registering participant: ${error.message}`);
     }
   });
 

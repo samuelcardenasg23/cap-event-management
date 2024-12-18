@@ -1,6 +1,6 @@
 ### Variables
 @host = http://localhost:4004
-@eventId = 1
+@eventId = 2
 @participantId = 1
 
 ### =================== EVENTS ===================
@@ -75,9 +75,8 @@ POST {{host}}/odata/v4/event-catalog/registerParticipant
 content-type: application/json
 
 {
-    "eventId": 1,
+    "eventId": 2,
     "participantData": {
-        "ID": 13,
         "FirstName": "John",
         "LastName": "Smith",
         "Email": "john.smith@example.com",
@@ -104,13 +103,12 @@ POST {{host}}/odata/v4/event-catalog/registerParticipant
 content-type: application/json
 
 {
-    "eventId": 4,
+    "eventId": 1,
     "participantData": {
-        "ID": 14,
         "FirstName": "Error",
         "LastName": "Test",
         "Email": "error.test@example.com",
         "Phone": "+1-555-0333",
-        "BusinessPartnerID": "BP014"
+        "BusinessPartnerID": "BP013"
     }
 }
