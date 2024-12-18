@@ -121,18 +121,23 @@ module.exports = cds.service.impl(async function () {
         const maxId = await SELECT.one`max(ID) as maxId`.from(Participants);
         const nextId = (maxId?.maxId || 0) + 1;
 
+        // Create new participant
         participant = await tx.run(
           INSERT.into(Participants).entries({
             ID: nextId,
-            ...participantData,
+            FirstName: participantData.FirstName,
+            LastName: participantData.LastName,
+            Email: participantData.Email,
+            Phone: participantData.Phone,
+            BusinessPartnerID: participantData.BusinessPartnerID,
           })
         );
       }
 
       // 5. Check if already registered
       const existing = await SELECT.one.from(EventParticipants).where({
-        event: eventId,
-        participant: participant.ID,
+        event_ID: eventId,
+        participant_ID: participant.ID,
       });
 
       if (existing) {
@@ -145,14 +150,14 @@ module.exports = cds.service.impl(async function () {
       // 6. Create registration
       await tx.run(
         INSERT.into(EventParticipants).entries({
-          event: eventId,
-          participant: participant.ID,
+          event_ID: eventId,
+          participant_ID: participant.ID,
           registrationDate: new Date().toISOString(),
         })
       );
 
       // 7. Return the participant entity
-      return participant;
+      return await SELECT.one.from(Participants).where({ ID: participant.ID });
     } catch (error) {
       console.error("Error registering participant:", error);
       return req.error(500, `Error registering participant: ${error.message}`);
