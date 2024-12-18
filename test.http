@@ -56,13 +56,12 @@ POST {{host}}/odata/v4/event-catalog/Participants
 content-type: application/json
 
 {
-    "ID": 12,
+    "ID": 3,
     "FirstName": "Jane",
     "LastName": "Doe",
     "Email": "jane.doe@example.com",
     "Phone": "+1-555-0111",
-    "BusinessPartnerID": "BP012",
-    "Event_ID": 1
+    "BusinessPartnerID": "BP003"
 }
 
 ### Fetch Participant Details (Bound Action)
@@ -75,13 +74,13 @@ POST {{host}}/odata/v4/event-catalog/registerParticipant
 content-type: application/json
 
 {
-    "eventId": 2,
+    "eventId": 1,
     "participantData": {
-        "FirstName": "John",
-        "LastName": "Smith",
-        "Email": "john.smith@example.com",
-        "Phone": "+1-555-0222",
-        "BusinessPartnerID": "BP013"
+        "FirstName": "Jane",
+        "LastName": "Doe",
+        "Email": "jane.doe@example.com",
+        "Phone": "+1-555-0111",
+        "BusinessPartnerID": "BP003"
     }
 }
 
@@ -110,5 +109,35 @@ content-type: application/json
         "Email": "error.test@example.com",
         "Phone": "+1-555-0333",
         "BusinessPartnerID": "BP013"
+    }
+}
+
+### Try to Register Same Participant Again (Should Fail)
+POST {{host}}/odata/v4/event-catalog/registerParticipant
+content-type: application/json
+
+{
+    "eventId": 1,
+    "participantData": {
+        "FirstName": "John",
+        "LastName": "Smith",
+        "Email": "john.smith@example.com",
+        "Phone": "+1-555-0123",
+        "BusinessPartnerID": "BP001"
+    }
+}
+
+### Try to Register for Non-existent Event (Should Fail)
+POST {{host}}/odata/v4/event-catalog/registerParticipant
+Content-Type: application/json
+
+{
+    "eventId": 999,
+    "participantData": {
+        "FirstName": "Test",
+        "LastName": "User",
+        "Email": "test.user@example.com",
+        "Phone": "+1-555-0125",
+        "BusinessPartnerID": "BP003"
     }
 }
