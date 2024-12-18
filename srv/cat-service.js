@@ -95,43 +95,66 @@ module.exports = cds.service.impl(async function () {
     const { eventId, participantData } = req.data;
 
     try {
-      // First, verify the event exists and is active
+      // 1. Verify event exists and is active
       const event = await SELECT.one.from(Events).where({ ID: eventId });
       if (!event) {
-        return req.error(404, `Event ${eventId} does not exist`);
+        return req.error(404, `Event with ID ${eventId} not found`);
       }
-      if (!event.IsActive) {
-        return req.error(400, `Event ${eventId} is not active`);
-      }
-      if (event.IsCancelled) {
-        return req.error(400, `Event ${eventId} is cancelled`);
-      }
-
-      // Check if participant is already registered for this event
-      const existingParticipant = await SELECT.one.from(Participants).where({
-        Email: participantData.Email,
-        Event_ID: eventId,
-      });
-
-      if (existingParticipant) {
+      if (!event.IsActive || event.IsCancelled) {
         return req.error(
           400,
-          `Participant with email ${participantData.Email} is already registered in Event ${eventId}`
+          `Event with ID ${eventId} is not available for registration`
         );
       }
 
-      // Create the participant
+      // 2. Start a transaction
       const tx = cds.transaction(req);
-      const participant = await tx.run(
-        INSERT.into(Participants).entries({
-          ...participantData,
-          Event_ID: eventId,
+
+      // 3. Check if participant already exists
+      let participant = await SELECT.one
+        .from(Participants)
+        .where({ Email: participantData.Email });
+
+      // 4. If participant doesn't exist, create new one
+      if (!participant) {
+        // Get the next available ID
+        const maxId = await SELECT.one`max(ID) as maxId`.from(Participants);
+        const nextId = (maxId?.maxId || 0) + 1;
+
+        participant = await tx.run(
+          INSERT.into(Participants).entries({
+            ID: nextId,
+            ...participantData,
+          })
+        );
+      }
+
+      // 5. Check if already registered
+      const existing = await SELECT.one.from(EventParticipants).where({
+        event: eventId,
+        participant: participant.ID,
+      });
+
+      if (existing) {
+        return req.error(
+          400,
+          "Participant is already registered for this event"
+        );
+      }
+
+      // 6. Create registration
+      await tx.run(
+        INSERT.into(EventParticipants).entries({
+          event: eventId,
+          participant: participant.ID,
+          registrationDate: new Date().toISOString(),
         })
       );
 
-      // Return the created participant
-      return await SELECT.one.from(Participants).where({ ID: participant.ID });
+      // 7. Return the participant entity
+      return participant;
     } catch (error) {
+      console.error("Error registering participant:", error);
       return req.error(500, `Error registering participant: ${error.message}`);
     }
   });
