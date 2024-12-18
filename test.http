@@ -141,3 +141,6 @@ Content-Type: application/json
         "BusinessPartnerID": "BP003"
     }
 }
+
+### Get Event Participants using Function
+GET {{host}}/odata/v4/event-catalog/getEventParticipants(eventId=1)

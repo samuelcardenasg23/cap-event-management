@@ -3,6 +3,8 @@ const cds = require("@sap/cds");
 module.exports = cds.service.impl(async function () {
   // Get the entity definitions
   const { Events, Participants, EventParticipants } = this.entities;
+  // console.log("DEFINITIONS", cds.model.definitions);
+  // console.log("ELEMENTS OF EVENTPARTICIPANTS: ",EventParticipants.elements);
 
   // BOUND actions for Events
   this.on("cancelEvent", async (req) => {
@@ -173,16 +175,57 @@ module.exports = cds.service.impl(async function () {
   });
 
   // UNBOUND functions
-  this.on("getEventParticipants", async (req) => {
+  this.on('getEventParticipants', async (req) => {
     const { eventId } = req.data;
 
     try {
-      const participants = await SELECT.from(Participants).where({
-        Event_ID: eventId,
-      });
-      return participants;
+      // Get event details
+      const event = await SELECT.one.from(Events).where({ ID: eventId });
+
+      if (!event) {
+        return req.error(404, `Event ${eventId} not found`);
+      }
+
+      // Get all registrations for this event with participant details
+      const registrations = await cds.tx(req).run(
+        SELECT.from(EventParticipants, ep => {
+          return {
+            participant: {
+              ID: ep.participant.ID,
+              FirstName: ep.participant.FirstName,
+              LastName: ep.participant.LastName,
+              Email: ep.participant.Email,
+              Phone: ep.participant.Phone,
+              BusinessPartnerID: ep.participant.BusinessPartnerID
+            },
+            registrationDate: ep.registrationDate
+          }
+        })
+          .where({ event_ID: eventId })
+      );
+
+      // Format the response
+      return {
+        event: {
+          ID: event.ID,
+          Name: event.Name,
+          Description: event.Description,
+          StartDate: event.StartDate,
+          EndDate: event.EndDate,
+          Location: event.Location,
+          IsActive: event.IsActive,
+          IsCancelled: event.IsCancelled,
+          CancellationReason: event.CancellationReason
+        },
+        participants: registrations.map(reg => ({
+          ...reg.participant,
+          registrationDate: reg.registrationDate
+        }))
+      };
+
     } catch (error) {
-      req.error(500, "Could not fetch participants");
+      console.error('Error getting event participants:', error);
+      return req.error(500, `Error getting event participants: ${error.message}`);
     }
   });
 });

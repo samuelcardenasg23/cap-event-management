@@ -48,13 +48,31 @@ service EventCatalog {
     })                                               returns Participants;
 
     // Get participants for a specific event
+    type ParticipantInfo {
+        ID                : Integer;
+        FirstName         : String;
+        LastName          : String;
+        Email             : String;
+        Phone             : String;
+        BusinessPartnerID : String;
+        registrationDate  : DateTime;
+    };
+
+    type EventInfo {
+        ID                 : Integer;
+        Name               : String;
+        Description        : String;
+        StartDate          : Date;
+        EndDate            : Date;
+        Location           : String;
+        IsActive           : Boolean;
+        IsCancelled        : Boolean;
+        CancellationReason : String;
+    };
+
     @cds.doc: 'Get all participants for a specific event'
-    function getEventParticipants(eventId : Integer) returns array of Participants;
+    function getEventParticipants(eventId: Integer) returns {
+        event: EventInfo;
+        participants: many ParticipantInfo;
+    };
 }
-
-// using {sap.cap.eventmanagement as my} from '../db/schema';
-
-// service EventCatalog {
-//     entity Events       as projection on my.Events;
-//     entity Participants as projection on my.Participants;
-// }
