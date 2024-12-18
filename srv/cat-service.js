@@ -187,22 +187,23 @@ module.exports = cds.service.impl(async function () {
       }
 
       // Get all registrations for this event with participant details
-      const registrations = await cds.tx(req).run(
-        SELECT.from(EventParticipants, ep => {
-          return {
-            participant: {
-              ID: ep.participant.ID,
-              FirstName: ep.participant.FirstName,
-              LastName: ep.participant.LastName,
-              Email: ep.participant.Email,
-              Phone: ep.participant.Phone,
-              BusinessPartnerID: ep.participant.BusinessPartnerID
-            },
-            registrationDate: ep.registrationDate
+      // Get all registrations for this event with participant details
+      const registrations = await SELECT
+        .from(EventParticipants, ep => ({
+          event_ID: ep.event_ID,
+          registrationDate: ep.registrationDate,
+          participant: {
+            ID: ep.participant.ID,
+            FirstName: ep.participant.FirstName,
+            LastName: ep.participant.LastName,
+            Email: ep.participant.Email,
+            Phone: ep.participant.Phone,
+            BusinessPartnerID: ep.participant.BusinessPartnerID
           }
-        })
-          .where({ event_ID: eventId })
-      );
+        }))
+        .where({ event_ID: eventId });
+
+      console.log('Registrations:', registrations); // Debug log
 
       // Format the response
       return {
@@ -218,7 +219,12 @@ module.exports = cds.service.impl(async function () {
           CancellationReason: event.CancellationReason
         },
         participants: registrations.map(reg => ({
-          ...reg.participant,
+          ID: reg.participant_ID,
+          FirstName: reg.participant_FirstName,
+          LastName: reg.participant_LastName,
+          Email: reg.participant_Email,
+          Phone: reg.participant_Phone,
+          BusinessPartnerID: reg.participant_BusinessPartnerID,
           registrationDate: reg.registrationDate
         }))
       };
