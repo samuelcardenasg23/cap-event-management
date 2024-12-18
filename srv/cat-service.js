@@ -4,23 +4,6 @@ module.exports = cds.service.impl(async function () {
   // Get the entity definitions
   const { Events, Participants, EventParticipants } = this.entities;
 
-  // Add logging for debugging
-  this.before('READ', 'Events', async (req) => {
-    console.log('Before reading Events...');
-});
-
-this.after('READ', 'Events', async (each) => {
-    console.log('After reading Events:', each);
-});
-
-// Handle READ operations explicitly
-this.on('READ', 'Events', async (req) => {
-    console.log('Reading Events...');
-    const results = await SELECT.from(Events);
-    console.log('Found Events:', results);
-    return results;
-});
-
   // BOUND actions for Events
   this.on("cancelEvent", async (req) => {
     try {
