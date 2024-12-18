@@ -73,6 +73,8 @@ module.exports = cds.service.impl(async function () {
       return req.error(500, `Error reopening event: ${error.message}`);
     }
   });
+  // Log entity definitions on service init
+  console.log('EventParticipants definition:', cds.model.definitions['sap.cap.eventmanagement.EventParticipants']);
 
   // BOUND actions for Participants
   this.on("fetchParticipantDetails", Participants, async (req) => {
@@ -134,30 +136,36 @@ module.exports = cds.service.impl(async function () {
         );
       }
 
+      // Log participant data
+      console.log('Participant:', participant);
+
       // 5. Check if already registered
-      const existing = await SELECT.one.from(EventParticipants).where({
-        event_ID: eventId,
-        participant_ID: participant.ID,
-      });
+      const existing = await SELECT.one.from(EventParticipants)
+        .where({
+          event_ID: eventId,
+          participant_ID: participant.ID
+        });
 
       if (existing) {
-        return req.error(
-          400,
-          "Participant is already registered for this event"
-        );
+        return req.error(400, 'Participant is already registered for this event');
       }
 
-      // 6. Create registration
-      await tx.run(
+      // 6. Create registration using association names
+      const result = await tx.run(
         INSERT.into(EventParticipants).entries({
           event_ID: eventId,
           participant_ID: participant.ID,
-          registrationDate: new Date().toISOString(),
+          registrationDate: new Date().toISOString()
         })
       );
 
+      console.log('Registration result:', result);
+
+      console.log('Registration result:', result);
+
       // 7. Return the participant entity
       return await SELECT.one.from(Participants).where({ ID: participant.ID });
+
     } catch (error) {
       console.error("Error registering participant:", error);
       return req.error(500, `Error registering participant: ${error.message}`);
