@@ -22,7 +22,8 @@
   },
   "cds": {
     "requires": {
-      "auth": "mocked"
+      "auth": "mocked",
+      "db": "hana"
     },
     "sql": {
       "native_hana_associations": false

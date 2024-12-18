@@ -12,8 +12,8 @@ entity Events : managed {
         IsActive           : Boolean default true not null;
         IsCancelled        : Boolean default false not null;
         CancellationReason : String(500);
-        Participants       : Association to many Participants
-                                 on Participants.Event = $self;
+        registrations      : Association to many EventParticipants
+                                 on registrations.event = $self;
 }
 
 entity Participants : managed {
@@ -23,5 +23,13 @@ entity Participants : managed {
         Email             : String(200) not null;
         Phone             : String(50);
         BusinessPartnerID : String(50) not null;
-        Event             : Association to Events not null;
+        registrations     : Association to many EventParticipants
+                                on registrations.participant = $self;
+}
+
+// Pivot table
+entity EventParticipants {
+    key event            : Association to Events;
+    key participant      : Association to Participants;
+        registrationDate : DateTime default $now;
 }

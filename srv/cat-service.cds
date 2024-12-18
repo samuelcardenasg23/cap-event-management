@@ -2,7 +2,11 @@ using {sap.cap.eventmanagement as my} from '../db/schema';
 
 service EventCatalog {
     // BOUND actions - tied to specific Events
-    entity Events       as projection on my.Events
+    entity Events            as
+        projection on my.Events {
+            *,
+            registrations : redirected to EventParticipants
+        }
         actions {
             // Cancel an event with a reason
             @cds.doc: 'Cancel an event and provide cancellation reason'
@@ -14,15 +18,21 @@ service EventCatalog {
         };
 
     // BOUND actions - tied to specific Participants
-    entity Participants as projection on my.Participants
+    entity Participants      as
+        projection on my.Participants {
+            *,
+            registrations : redirected to EventParticipants
+        }
         actions {
             // Fetch participant details from BP API
             @cds.doc: 'Fetch participant details from Business Partner API'
             action fetchParticipantDetails() returns {
                 BusinessPartner : String;
-            // Add other BP fields you need
             };
         };
+
+    // Expose the pivot table
+    entity EventParticipants as projection on my.EventParticipants;
 
     // UNBOUND actions/functions - service level
 
