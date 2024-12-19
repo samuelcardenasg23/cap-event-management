@@ -155,3 +155,14 @@ Content-Type: application/json
 
 ### Get Event Participants using Function
 GET {{host}}/odata/v4/event-catalog/getEventParticipants(eventId=1)
+
+### Update Participant
+POST {{host}}/odata/v4/event-catalog/Participants(4)/updateParticipant
+Content-Type: application/json
+
+{
+    "FirstName": "Vito",
+    "LastName": "Corleone",
+    "Email": "godfather@example.com",
+    "Phone": "3333333333"
+}

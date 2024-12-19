@@ -284,4 +284,39 @@ module.exports = cds.service.impl(async function () {
       return req.error(500, `Error getting event participants: ${error.message}`);
     }
   });
+
+  // Bound action for updating participant
+  this.on('updateParticipant', 'Participants', async (req) => {
+    // Get ID from the bound entity
+    const ID = req.params[0];
+    const { FirstName, LastName, Email, Phone } = req.data;
+
+    try {
+      // 1. Check if participant exists
+      const participant = await SELECT.one.from(Participants).where({ ID: ID });
+      if (!participant) {
+        return req.error(404, `Participant with ID ${ID} not found`);
+      }
+
+      // 2. Update participant
+      const tx = cds.transaction(req);
+      await tx.run(
+        UPDATE(Participants)
+          .set({
+            FirstName,
+            LastName,
+            Email,
+            Phone
+          })
+          .where({ ID: ID })
+      );
+
+      // 3. Return updated participant
+      return SELECT.one.from(Participants).where({ ID: ID });
+
+    } catch (error) {
+      console.error('Error updating participant:', error);
+      return req.error(500, `Error updating participant: ${error.message}`);
+    }
+  });
 });

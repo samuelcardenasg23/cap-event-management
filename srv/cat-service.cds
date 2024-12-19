@@ -26,9 +26,15 @@ service EventCatalog {
         actions {
             // Fetch participant details from BP API
             @cds.doc: 'Fetch participant details from Business Partner API'
-            action fetchParticipantDetails() returns {
+            action fetchParticipantDetails()         returns {
                 BusinessPartner : String;
             };
+
+            // Bound action for update
+            action updateParticipant(FirstName : String,
+                                     LastName : String,
+                                     Email : String,
+                                     Phone : String) returns Participants;
         };
 
     // Expose the pivot table
@@ -74,4 +80,11 @@ service EventCatalog {
         event : EventInfo;
         participants : many ParticipantInfo;
     };
+
+    // Update Participant action
+    action   updateParticipant(ID : Integer,
+                               FirstName : String,
+                               LastName : String,
+                               Email : String,
+                               Phone : String)            returns Participants;
 }
