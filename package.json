@@ -18,12 +18,20 @@
   "devDependencies": {
     "@cap-js/cds-types": "^0.7.0",
     "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^8"
+    "@sap/cds-dk": "^8.6.1"
   },
   "scripts": {
     "start": "cds-serve"
   },
   "cds": {
+    "cds": {
+      "fiori": {
+        "preview": true
+      },
+      "server": {
+        "index": true
+      }
+    },
     "requires": {
       "auth": "mocked",
       "db": "hana",
@@ -37,6 +45,10 @@
           "username": "CAP_BOOTCAMP_S4_API_USER",
           "password": "WS$UGgbhkG8EEvUpccCgmedHhmHRiWeZVGfvcUPE"
         }
+      },
+      "[production]": {
+        "db": "hana",
+        "auth": "mocked"
       }
     },
     "sql": {

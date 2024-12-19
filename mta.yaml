@@ -27,6 +27,7 @@ modules:
     requires:
       - name: cap-event-management-auth
       - name: cap-event-management-db
+      - name: cap-event-management-destination
 
   - name: cap-event-management-db-deployer
     type: hdb
@@ -50,6 +51,8 @@ modules:
           name: srv-api # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
+      - name: cap-event-management-destination
+      - name: cap-event-management-auth
 
 resources:
   - name: cap-event-management-auth
@@ -66,3 +69,8 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: cap-event-management-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
