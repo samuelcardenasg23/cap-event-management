@@ -3,29 +3,41 @@ const cds = require("@sap/cds");
 module.exports = cds.service.impl(async function () {
   // Get the entity definitions
   const { Events, Participants, EventParticipants } = this.entities;
-  const bupa = await cds.connect.to('API_BUSINESS_PARTNER');
+  const bupa = await cds.connect.to("API_BUSINESS_PARTNER");
 
   // BP Validation function
   async function validateBusinessPartner(businessPartnerId) {
     try {
-      const bp = await bupa.run(SELECT.one('A_BusinessPartner')
-        .where({ BusinessPartner: businessPartnerId }));
+      const bp = await bupa.run(
+        SELECT.one("A_BusinessPartner").where({
+          BusinessPartner: businessPartnerId,
+        })
+      );
 
       if (!bp) {
-        return { valid: false, message: `Business Partner ${businessPartnerId} not found` };
+        return {
+          valid: false,
+          message: `Business Partner ${businessPartnerId} not found`,
+        };
       }
       if (bp.BusinessPartnerIsBlocked) {
-        return { valid: false, message: `Business Partner ${businessPartnerId} is blocked` };
+        return {
+          valid: false,
+          message: `Business Partner ${businessPartnerId} is blocked`,
+        };
       }
       return { valid: true, bp };
     } catch (error) {
-      console.error('Error validating BP:', error);
-      return { valid: false, message: `Error validating Business Partner: ${error.message}` };
+      console.error("Error validating BP:", error);
+      return {
+        valid: false,
+        message: `Error validating Business Partner: ${error.message}`,
+      };
     }
   }
 
   // Create Participant Action
-  this.on('createParticipant', async (req) => {
+  this.on("createParticipant", async (req) => {
     const { BusinessPartnerID, FirstName, LastName, Email, Phone } = req.data;
 
     try {
@@ -36,11 +48,15 @@ module.exports = cds.service.impl(async function () {
       }
 
       // 2. Check if participant already exists
-      const existing = await SELECT.one.from(Participants)
+      const existing = await SELECT.one
+        .from(Participants)
         .where({ BusinessPartnerID: BusinessPartnerID });
 
       if (existing) {
-        return req.error(400, `Participant with Business Partner ID ${BusinessPartnerID} already exists`);
+        return req.error(
+          400,
+          `Participant with Business Partner ID ${BusinessPartnerID} already exists`
+        );
       }
 
       // 3. Get the next ID
@@ -54,15 +70,13 @@ module.exports = cds.service.impl(async function () {
         FirstName,
         LastName,
         Email,
-        Phone
+        Phone,
       });
 
       // 5. Return the created participant
-      return SELECT.one.from(Participants)
-        .where({ ID: nextId });
-
+      return SELECT.one.from(Participants).where({ ID: nextId });
     } catch (error) {
-      console.error('Error creating participant:', error);
+      console.error("Error creating participant:", error);
       return req.error(500, `Error creating participant: ${error.message}`);
     }
   });
@@ -142,7 +156,7 @@ module.exports = cds.service.impl(async function () {
     const { ID } = req.params[0];
 
     try {
-      // Here we'll add the Business Partner API integration
+      // Here add the Business Partner API integration
       // For now, returning mock data
       return {
         BusinessPartner: "BP001",
@@ -171,53 +185,35 @@ module.exports = cds.service.impl(async function () {
       }
 
       // 2. Verify participant exists
-      const participant = await SELECT.one.from(Participants).where({ ID: participantId });
+      const participant = await SELECT.one
+        .from(Participants)
+        .where({ ID: participantId });
       if (!participant) {
         return req.error(404, `Participant with ID ${participantId} not found`);
       }
 
       // 3. Check if already registered
-      const existing = await SELECT.one.from(EventParticipants)
-        .where({
-          event_ID: eventId,
-          participant_ID: participantId
-        });
+      const existing = await SELECT.one.from(EventParticipants).where({
+        event_ID: eventId,
+        participant_ID: participantId,
+      });
 
       if (existing) {
-        return req.error(400, 'Participant is already registered for this event');
+        return req.error(
+          400,
+          "Participant is already registered for this event"
+        );
       }
-
-      // const existing = await SELECT.one.from(EventParticipants)
-      //   .where({
-      //     event_ID: eventId,
-      //     participant_ID: participant.ID
-      //   });
-
-      // if (existing) {
-      //   return req.error(400, 'Participant is already registered for this event');
-      // }
 
       // 4. Create registration
       await INSERT.into(EventParticipants).entries({
         event_ID: eventId,
         participant_ID: participantId,
-        registrationDate: new Date().toISOString()
+        registrationDate: new Date().toISOString(),
       });
-      // const result = await tx.run(
-      //   INSERT.into(EventParticipants).entries({
-      //     event_ID: eventId,
-      //     participant_ID: participant.ID,
-      //     registrationDate: new Date().toISOString()
-      //   })
-      // );
-
-      // console.log('Registration result:', result);
-      // console.log('Registration result:', result);
 
       // 5. Return the participant details
       return SELECT.one.from(Participants).where({ ID: participantId });
-      // return await SELECT.one.from(Participants).where({ ID: participant.ID });
-
     } catch (error) {
       console.error("Error registering participant:", error);
       return req.error(500, `Error registering participant: ${error.message}`);
@@ -225,7 +221,7 @@ module.exports = cds.service.impl(async function () {
   });
 
   // UNBOUND functions
-  this.on('getEventParticipants', async (req) => {
+  this.on("getEventParticipants", async (req) => {
     const { eventId } = req.data;
 
     try {
@@ -237,23 +233,20 @@ module.exports = cds.service.impl(async function () {
       }
 
       // Get all registrations for this event with participant details
-      // Get all registrations for this event with participant details
-      const registrations = await SELECT
-        .from(EventParticipants, ep => ({
-          event_ID: ep.event_ID,
-          registrationDate: ep.registrationDate,
-          participant: {
-            ID: ep.participant.ID,
-            FirstName: ep.participant.FirstName,
-            LastName: ep.participant.LastName,
-            Email: ep.participant.Email,
-            Phone: ep.participant.Phone,
-            BusinessPartnerID: ep.participant.BusinessPartnerID
-          }
-        }))
-        .where({ event_ID: eventId });
+      const registrations = await SELECT.from(EventParticipants, (ep) => ({
+        event_ID: ep.event_ID,
+        registrationDate: ep.registrationDate,
+        participant: {
+          ID: ep.participant.ID,
+          FirstName: ep.participant.FirstName,
+          LastName: ep.participant.LastName,
+          Email: ep.participant.Email,
+          Phone: ep.participant.Phone,
+          BusinessPartnerID: ep.participant.BusinessPartnerID,
+        },
+      })).where({ event_ID: eventId });
 
-      console.log('Registrations:', registrations); // Debug log
+      console.log("Registrations:", registrations);
 
       // Format the response
       return {
@@ -266,27 +259,29 @@ module.exports = cds.service.impl(async function () {
           Location: event.Location,
           IsActive: event.IsActive,
           IsCancelled: event.IsCancelled,
-          CancellationReason: event.CancellationReason
+          CancellationReason: event.CancellationReason,
         },
-        participants: registrations.map(reg => ({
+        participants: registrations.map((reg) => ({
           ID: reg.participant_ID,
           FirstName: reg.participant_FirstName,
           LastName: reg.participant_LastName,
           Email: reg.participant_Email,
           Phone: reg.participant_Phone,
           BusinessPartnerID: reg.participant_BusinessPartnerID,
-          registrationDate: reg.registrationDate
-        }))
+          registrationDate: reg.registrationDate,
+        })),
       };
-
     } catch (error) {
-      console.error('Error getting event participants:', error);
-      return req.error(500, `Error getting event participants: ${error.message}`);
+      console.error("Error getting event participants:", error);
+      return req.error(
+        500,
+        `Error getting event participants: ${error.message}`
+      );
     }
   });
 
   // Bound action for updating participant
-  this.on('updateParticipant', 'Participants', async (req) => {
+  this.on("updateParticipant", "Participants", async (req) => {
     // Get ID from the bound entity
     const ID = req.params[0];
     const { FirstName, LastName, Email, Phone } = req.data;
@@ -306,16 +301,15 @@ module.exports = cds.service.impl(async function () {
             FirstName,
             LastName,
             Email,
-            Phone
+            Phone,
           })
           .where({ ID: ID })
       );
 
       // 3. Return updated participant
       return SELECT.one.from(Participants).where({ ID: ID });
-
     } catch (error) {
-      console.error('Error updating participant:', error);
+      console.error("Error updating participant:", error);
       return req.error(500, `Error updating participant: ${error.message}`);
     }
   });
