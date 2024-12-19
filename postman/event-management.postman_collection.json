@@ -1,0 +1,1573 @@
+{
+	"info": {
+		"_postman_id": "f11c5f56-ac0c-4753-a743-9ec83f69e3d8",
+		"name": "Event Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32645704"
+	},
+	"item": [
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Events",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "716"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:48:59 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "030cda0e-af06-4a5d-778c-af753d486fea"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "030cda0e-af06-4a5d-778c-af753d486fea"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Events\",\n    \"value\": [\n        {\n            \"CancellationReason\": null,\n            \"Description\": \"New event description\",\n            \"EndDate\": \"2024-12-20\",\n            \"ID\": 1,\n            \"IsActive\": true,\n            \"IsCancelled\": false,\n            \"Location\": \"Paris, France\",\n            \"Name\": \"New SAP Event\",\n            \"StartDate\": \"2024-12-19\",\n            \"createdAt\": \"2024-12-19T22:43:40.578Z\",\n            \"createdBy\": \"anonymous\",\n            \"modifiedAt\": \"2024-12-19T22:43:40.578Z\",\n            \"modifiedBy\": \"anonymous\"\n        },\n        {\n            \"CancellationReason\": null,\n            \"Description\": \"Globant SAP/CAP Bootcamp\",\n            \"EndDate\": \"2024-12-24\",\n            \"ID\": 2,\n            \"IsActive\": true,\n            \"IsCancelled\": false,\n            \"Location\": \"Remote\",\n            \"Name\": \"SAP/CAP Bootcamp\",\n            \"StartDate\": \"2024-12-23\",\n            \"createdAt\": \"2024-12-19T22:48:46.107Z\",\n            \"createdBy\": \"anonymous\",\n            \"modifiedAt\": \"2024-12-19T22:48:46.107Z\",\n            \"modifiedBy\": \"anonymous\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ID\": 2,\r\n    \"Name\": \"SAP/CAP Bootcamp\",\r\n    \"StartDate\": \"2024-12-23\",\r\n    \"EndDate\": \"2024-12-24\",\r\n    \"Location\": \"Remote\",\r\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\r\n    \"IsActive\": true,\r\n    \"IsCancelled\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Event",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ID\": 2,\r\n    \"Name\": \"SAP/CAP Bootcamp\",\r\n    \"StartDate\": \"2024-12-23\",\r\n    \"EndDate\": \"2024-12-24\",\r\n    \"Location\": \"Remote\",\r\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\r\n    \"IsActive\": true,\r\n    \"IsCancelled\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "377"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:48:46 GMT"
+								},
+								{
+									"key": "location",
+									"value": "Events(2)"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "7bf4c9ba-661d-4d3e-529f-18814003fb95"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "7bf4c9ba-661d-4d3e-529f-18814003fb95"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Events/$entity\",\n    \"CancellationReason\": null,\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\n    \"EndDate\": \"2024-12-24\",\n    \"ID\": 2,\n    \"IsActive\": true,\n    \"IsCancelled\": false,\n    \"Location\": \"Remote\",\n    \"Name\": \"SAP/CAP Bootcamp\",\n    \"StartDate\": \"2024-12-23\",\n    \"createdAt\": \"2024-12-19T22:48:46.107Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:48:46.107Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Single Event",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(2)",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events(2)"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Single Event",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(2)",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events(2)"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "377"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:49:23 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "6d5497e3-1b9d-4ee8-7808-c860f83c6f9d"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "6d5497e3-1b9d-4ee8-7808-c860f83c6f9d"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Events/$entity\",\n    \"CancellationReason\": null,\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\n    \"EndDate\": \"2024-12-24\",\n    \"ID\": 2,\n    \"IsActive\": true,\n    \"IsCancelled\": false,\n    \"Location\": \"Remote\",\n    \"Name\": \"SAP/CAP Bootcamp\",\n    \"StartDate\": \"2024-12-23\",\n    \"createdAt\": \"2024-12-19T22:48:46.107Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:48:46.107Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Event Participants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/getEventParticipants(eventId=1)",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"getEventParticipants(eventId=1)"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Event Participants",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/getEventParticipants(eventId=1)",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"getEventParticipants(eventId=1)"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "495"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 23:04:35 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "4e458eb4-3ef8-4916-7c3a-17633aabc208"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "4e458eb4-3ef8-4916-7c3a-17633aabc208"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#EventCatalog.return_EventCatalog_getEventParticipants\",\n    \"event\": {\n        \"ID\": 1,\n        \"Name\": \"New SAP Event\",\n        \"Description\": \"New event description\",\n        \"StartDate\": \"2024-12-19\",\n        \"EndDate\": \"2024-12-20\",\n        \"Location\": \"Paris, France\",\n        \"IsActive\": true,\n        \"IsCancelled\": false,\n        \"CancellationReason\": null\n    },\n    \"participants\": [\n        {\n            \"ID\": 1,\n            \"FirstName\": \"Don Vito\",\n            \"LastName\": \"Corleone\",\n            \"Email\": \"godfather@example.com\",\n            \"Phone\": \"3333333333\",\n            \"BusinessPartnerID\": \"1000000\",\n            \"registrationDate\": \"2024-12-19T23:03:56Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\": \"Cancelled because of bad weather\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(3)/cancelEvent",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events(3)",
+								"cancelEvent"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cancel Event",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reason\": \"Cancelled because of bad weather\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(3)/cancelEvent",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events(3)",
+										"cancelEvent"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "414"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 23:08:53 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "5e81cca1-0402-42cb-73f3-e3b586d3c8f6"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "5e81cca1-0402-42cb-73f3-e3b586d3c8f6"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"../$metadata#Events/$entity\",\n    \"CancellationReason\": \"Cancelled because of bad weather\",\n    \"Description\": \"Company christmas party\",\n    \"EndDate\": \"2024-12-25\",\n    \"ID\": 3,\n    \"IsActive\": false,\n    \"IsCancelled\": true,\n    \"Location\": \"New York, NY\",\n    \"Name\": \"Christmas Party\",\n    \"StartDate\": \"2024-12-24\",\n    \"createdAt\": \"2024-12-19T23:08:04.469Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T23:08:53.892Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Participants",
+			"item": [
+				{
+					"name": "Get All Participants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Participants",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Participants"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Participants",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Participants",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Participants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "571"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:59:48 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "4e3384fc-93d3-4a62-53b3-0adfb8a81e11"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "4e3384fc-93d3-4a62-53b3-0adfb8a81e11"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Participants\",\n    \"value\": [\n        {\n            \"BusinessPartnerID\": \"1000000\",\n            \"Email\": \"godfather@example.com\",\n            \"FirstName\": \"Don Vito\",\n            \"ID\": 1,\n            \"LastName\": \"Corleone\",\n            \"Phone\": \"3333333333\",\n            \"createdAt\": \"2024-12-19T22:51:53.889Z\",\n            \"createdBy\": \"anonymous\",\n            \"modifiedAt\": \"2024-12-19T22:59:14.613Z\",\n            \"modifiedBy\": \"anonymous\"\n        },\n        {\n            \"BusinessPartnerID\": \"1000001\",\n            \"Email\": \"ww@example.com\",\n            \"FirstName\": \"Walter\",\n            \"ID\": 2,\n            \"LastName\": \"White\",\n            \"Phone\": \"9876543210\",\n            \"createdAt\": \"2024-12-19T22:57:49.258Z\",\n            \"createdBy\": \"anonymous\",\n            \"modifiedAt\": \"2024-12-19T22:57:49.258Z\",\n            \"modifiedBy\": \"anonymous\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Participant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BusinessPartnerID\": \"1000000\",\r\n    \"FirstName\": \"Vito\",\r\n    \"LastName\": \"Corleone\",\r\n    \"Email\": \"vito@example.com\",\r\n    \"Phone\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/createParticipant",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"createParticipant"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Participant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"BusinessPartnerID\": \"1000000\",\r\n    \"FirstName\": \"Vito\",\r\n    \"LastName\": \"Corleone\",\r\n    \"Email\": \"vito@example.com\",\r\n    \"Phone\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/createParticipant",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"createParticipant"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "305"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:51:54 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "7cf2b75a-afb1-412a-679a-20da3c2ad04e"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "7cf2b75a-afb1-412a-679a-20da3c2ad04e"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Participants/$entity\",\n    \"BusinessPartnerID\": \"1000000\",\n    \"Email\": \"vito@example.com\",\n    \"FirstName\": \"Vito\",\n    \"ID\": 1,\n    \"LastName\": \"Corleone\",\n    \"Phone\": \"1234567890\",\n    \"createdAt\": \"2024-12-19T22:51:53.889Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:51:53.889Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Participant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FirstName\": \"Don Vito\",\r\n    \"LastName\": \"Corleone\",\r\n    \"Email\": \"godfather@example.com\",\r\n    \"Phone\": \"3333333333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Participants(1)/updateParticipant",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Participants(1)",
+								"updateParticipant"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Participant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"FirstName\": \"Don Vito\",\r\n    \"LastName\": \"Corleone\",\r\n    \"Email\": \"godfather@example.com\",\r\n    \"Phone\": \"3333333333\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Participants(1)/updateParticipant",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Participants(1)",
+										"updateParticipant"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "317"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:59:14 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "8fe155b8-28d3-413b-73d7-6773cffb2779"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "8fe155b8-28d3-413b-73d7-6773cffb2779"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"../$metadata#Participants/$entity\",\n    \"BusinessPartnerID\": \"1000000\",\n    \"Email\": \"godfather@example.com\",\n    \"FirstName\": \"Don Vito\",\n    \"ID\": 1,\n    \"LastName\": \"Corleone\",\n    \"Phone\": \"3333333333\",\n    \"createdAt\": \"2024-12-19T22:51:53.889Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:59:14.613Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "App Flow",
+			"item": [
+				{
+					"name": "Create Event Flow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ID\": 2,\r\n    \"Name\": \"SAP/CAP Bootcamp\",\r\n    \"StartDate\": \"2024-12-23\",\r\n    \"EndDate\": \"2024-12-24\",\r\n    \"Location\": \"Remote\",\r\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\r\n    \"IsActive\": true,\r\n    \"IsCancelled\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Event",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ID\": 2,\r\n    \"Name\": \"SAP/CAP Bootcamp\",\r\n    \"StartDate\": \"2024-12-23\",\r\n    \"EndDate\": \"2024-12-24\",\r\n    \"Location\": \"Remote\",\r\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\r\n    \"IsActive\": true,\r\n    \"IsCancelled\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "377"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:48:46 GMT"
+								},
+								{
+									"key": "location",
+									"value": "Events(2)"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "7bf4c9ba-661d-4d3e-529f-18814003fb95"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "7bf4c9ba-661d-4d3e-529f-18814003fb95"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Events/$entity\",\n    \"CancellationReason\": null,\n    \"Description\": \"Globant SAP/CAP Bootcamp\",\n    \"EndDate\": \"2024-12-24\",\n    \"ID\": 2,\n    \"IsActive\": true,\n    \"IsCancelled\": false,\n    \"Location\": \"Remote\",\n    \"Name\": \"SAP/CAP Bootcamp\",\n    \"StartDate\": \"2024-12-23\",\n    \"createdAt\": \"2024-12-19T22:48:46.107Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:48:46.107Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Participant Flow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BusinessPartnerID\": \"1000000\",\r\n    \"FirstName\": \"Vito\",\r\n    \"LastName\": \"Corleone\",\r\n    \"Email\": \"vito@example.com\",\r\n    \"Phone\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/createParticipant",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"createParticipant"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Participant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"BusinessPartnerID\": \"1000000\",\r\n    \"FirstName\": \"Vito\",\r\n    \"LastName\": \"Corleone\",\r\n    \"Email\": \"vito@example.com\",\r\n    \"Phone\": \"1234567890\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/createParticipant",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"createParticipant"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "305"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 22:51:54 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "7cf2b75a-afb1-412a-679a-20da3c2ad04e"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "7cf2b75a-afb1-412a-679a-20da3c2ad04e"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Participants/$entity\",\n    \"BusinessPartnerID\": \"1000000\",\n    \"Email\": \"vito@example.com\",\n    \"FirstName\": \"Vito\",\n    \"ID\": 1,\n    \"LastName\": \"Corleone\",\n    \"Phone\": \"1234567890\",\n    \"createdAt\": \"2024-12-19T22:51:53.889Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:51:53.889Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register Participant to Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventId\": 1,\r\n    \"participantId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/registerParticipant",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"registerParticipant"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register Participant to Event",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": 1,\r\n    \"participantId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/registerParticipant",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"registerParticipant"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "314"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 23:03:56 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "bc4639e8-af6a-4932-719a-c78002868d6e"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "bc4639e8-af6a-4932-719a-c78002868d6e"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#Participants/$entity\",\n    \"BusinessPartnerID\": \"1000000\",\n    \"Email\": \"godfather@example.com\",\n    \"FirstName\": \"Don Vito\",\n    \"ID\": 1,\n    \"LastName\": \"Corleone\",\n    \"Phone\": \"3333333333\",\n    \"createdAt\": \"2024-12-19T22:51:53.889Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T22:59:14.613Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Event Participants Flow",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/getEventParticipants(eventId=1)",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"getEventParticipants(eventId=1)"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Event Participants Flow",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/getEventParticipants(eventId=1)",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"getEventParticipants(eventId=1)"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "495"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 23:04:35 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "4e458eb4-3ef8-4916-7c3a-17633aabc208"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "4e458eb4-3ef8-4916-7c3a-17633aabc208"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"$metadata#EventCatalog.return_EventCatalog_getEventParticipants\",\n    \"event\": {\n        \"ID\": 1,\n        \"Name\": \"New SAP Event\",\n        \"Description\": \"New event description\",\n        \"StartDate\": \"2024-12-19\",\n        \"EndDate\": \"2024-12-20\",\n        \"Location\": \"Paris, France\",\n        \"IsActive\": true,\n        \"IsCancelled\": false,\n        \"CancellationReason\": null\n    },\n    \"participants\": [\n        {\n            \"ID\": 1,\n            \"FirstName\": \"Don Vito\",\n            \"LastName\": \"Corleone\",\n            \"Email\": \"godfather@example.com\",\n            \"Phone\": \"3333333333\",\n            \"BusinessPartnerID\": \"1000000\",\n            \"registrationDate\": \"2024-12-19T23:03:56Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Event Flow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\": \"Cancelled because of bad weather\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(3)/cancelEvent",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events(3)",
+								"cancelEvent"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cancel Event Flow",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reason\": \"Cancelled because of bad weather\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(3)/cancelEvent",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events(3)",
+										"cancelEvent"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "414"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 23:08:53 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "5e81cca1-0402-42cb-73f3-e3b586d3c8f6"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "5e81cca1-0402-42cb-73f3-e3b586d3c8f6"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"../$metadata#Events/$entity\",\n    \"CancellationReason\": \"Cancelled because of bad weather\",\n    \"Description\": \"Company christmas party\",\n    \"EndDate\": \"2024-12-25\",\n    \"ID\": 3,\n    \"IsActive\": false,\n    \"IsCancelled\": true,\n    \"Location\": \"New York, NY\",\n    \"Name\": \"Christmas Party\",\n    \"StartDate\": \"2024-12-24\",\n    \"createdAt\": \"2024-12-19T23:08:04.469Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T23:08:53.892Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reopen Event Flow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(3)/reopenEvent",
+							"protocol": "https",
+							"host": [
+								"7c03d547trial-dev-cap-event-management-srv",
+								"cfapps",
+								"us10-001",
+								"hana",
+								"ondemand",
+								"com"
+							],
+							"path": [
+								"odata",
+								"v4",
+								"event-catalog",
+								"Events(3)",
+								"reopenEvent"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Reopen Event Flow",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/event-catalog/Events(3)/reopenEvent",
+									"protocol": "https",
+									"host": [
+										"7c03d547trial-dev-cap-event-management-srv",
+										"cfapps",
+										"us10-001",
+										"hana",
+										"ondemand",
+										"com"
+									],
+									"path": [
+										"odata",
+										"v4",
+										"event-catalog",
+										"Events(3)",
+										"reopenEvent"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-length",
+									"value": "384"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 19 Dec 2024 23:10:33 GMT"
+								},
+								{
+									"key": "odata-version",
+									"value": "4.0"
+								},
+								{
+									"key": "x-correlation-id",
+									"value": "60dced13-eeab-45c8-789e-170daaa526b0"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "x-vcap-request-id",
+									"value": "60dced13-eeab-45c8-789e-170daaa526b0"
+								},
+								{
+									"key": "strict-transport-security",
+									"value": "max-age=31536000; includeSubDomains; preload;"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"@odata.context\": \"../$metadata#Events/$entity\",\n    \"CancellationReason\": null,\n    \"Description\": \"Company christmas party\",\n    \"EndDate\": \"2024-12-25\",\n    \"ID\": 3,\n    \"IsActive\": true,\n    \"IsCancelled\": false,\n    \"Location\": \"New York, NY\",\n    \"Name\": \"Christmas Party\",\n    \"StartDate\": \"2024-12-24\",\n    \"createdAt\": \"2024-12-19T23:08:04.469Z\",\n    \"createdBy\": \"anonymous\",\n    \"modifiedAt\": \"2024-12-19T23:10:33.261Z\",\n    \"modifiedBy\": \"anonymous\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -149,7 +149,7 @@ Content-Type: application/json
 
 {
     "eventId": 1,
-    "participantId": 7
+    "participantId": 1
 }
 
 ### Get Event Participants using Function

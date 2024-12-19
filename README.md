@@ -2,6 +2,9 @@
 
 A CAP-based application for managing events and participants, integrated with SAP S/4HANA Business Partner API.
 
+## Application URL
+https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com/
+
 ## Prerequisites
 
 - Node.js
@@ -32,7 +35,7 @@ cds watch --profile hybrid
 
 ## API Documentation
 
-Please refer to the `test.http` file for the available endpoints
+Please refer to the `test.http` file for the available endpoints. Production test requests can be found at the end of the file under the section "FLOW TEST APP ROUTE".
 
 ### 1. API Flow
 
@@ -158,3 +161,17 @@ The application includes comprehensive error handling for:
 ## Testing
 
 You can use the provided HTTP requests to test the API endpoints. These can be executed using REST clients like Postman or REST Client extension.
+
+## API Testing
+
+### Postman Collection
+A Postman collection is available in the `postman` folder. To use it:
+
+1. Open Postman
+2. Click "Import"
+3. Select the file: `postman/event-management.postman_collection.json`
+4. Set up your environment variables:
+   - `host`: https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com
+
+### Test HTTP File
+Alternatively, you can use the `test.http` file for testing endpoints. Production test requests can be found at the end of the file under the section "FLOW TEST APP ROUTE".
