@@ -24,13 +24,11 @@
     "start": "cds-serve"
   },
   "cds": {
-    "cds": {
-      "fiori": {
-        "preview": true
-      },
-      "server": {
-        "index": true
-      }
+    "fiori": {
+      "preview": true
+    },
+    "server": {
+      "index": true
     },
     "requires": {
       "auth": "mocked",
@@ -48,7 +46,7 @@
       },
       "[production]": {
         "db": "hana",
-        "auth": "mocked"
+        "auth": "xsuaa"
       }
     },
     "sql": {
