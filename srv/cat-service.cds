@@ -39,18 +39,12 @@ service EventCatalog {
                                FirstName : String,
                                LastName : String,
                                Email : String,
-                               Phone : String)       returns Participants;
+                               Phone : String)            returns Participants;
 
     // Register participant for an event
     @cds.doc: 'Register a participant for a specific event'
     action   registerParticipant(eventId : Integer,
-                                 participantData : {
-        FirstName : String;
-        LastName : String;
-        Email : String;
-        Phone : String;
-        BusinessPartnerID : String;
-    })                                               returns Participants;
+                                 participantId : Integer) returns Participants;
 
     // Get participants for a specific event
     type ParticipantInfo {
@@ -76,7 +70,7 @@ service EventCatalog {
     };
 
     @cds.doc: 'Get all participants for a specific event'
-    function getEventParticipants(eventId : Integer) returns {
+    function getEventParticipants(eventId : Integer)      returns {
         event : EventInfo;
         participants : many ParticipantInfo;
     };

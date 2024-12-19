@@ -114,17 +114,11 @@ content-type: application/json
 
 ### Try to Register Same Participant Again (Should Fail)
 POST {{host}}/odata/v4/event-catalog/registerParticipant
-content-type: application/json
+Content-Type: application/json
 
 {
     "eventId": 1,
-    "participantData": {
-        "FirstName": "John",
-        "LastName": "Smith",
-        "Email": "john.smith@example.com",
-        "Phone": "+1-555-0123",
-        "BusinessPartnerID": "BP001"
-    }
+    "participantId": 4
 }
 
 ### Try to Register for Non-existent Event (Should Fail)
@@ -133,17 +127,10 @@ Content-Type: application/json
 
 {
     "eventId": 999,
-    "participantData": {
-        "FirstName": "Test",
-        "LastName": "User",
-        "Email": "test.user@example.com",
-        "Phone": "+1-555-0125",
-        "BusinessPartnerID": "BP003"
-    }
+    "participantId": 4
 }
 
-### Get Event Participants using Function
-GET {{host}}/odata/v4/event-catalog/getEventParticipants(eventId=1)
+### =================== FLOW TEST ===================
 
 ### Create Participant
 POST {{host}}/odata/v4/event-catalog/createParticipant
@@ -156,3 +143,15 @@ Content-Type: application/json
     "Email": "vito@example.com",
     "Phone": "1234567890"
 }
+
+### Register Participant
+POST {{host}}/odata/v4/event-catalog/registerParticipant
+Content-Type: application/json
+
+{
+    "eventId": 1,
+    "participantId": 7
+}
+
+### Get Event Participants using Function
+GET {{host}}/odata/v4/event-catalog/getEventParticipants(eventId=1)
