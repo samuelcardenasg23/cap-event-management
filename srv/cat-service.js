@@ -3,8 +3,69 @@ const cds = require("@sap/cds");
 module.exports = cds.service.impl(async function () {
   // Get the entity definitions
   const { Events, Participants, EventParticipants } = this.entities;
-  // console.log("DEFINITIONS", cds.model.definitions);
-  // console.log("ELEMENTS OF EVENTPARTICIPANTS: ",EventParticipants.elements);
+  const bupa = await cds.connect.to('API_BUSINESS_PARTNER');
+
+  // BP Validation function
+  async function validateBusinessPartner(businessPartnerId) {
+    try {
+      const bp = await bupa.run(SELECT.one('A_BusinessPartner')
+        .where({ BusinessPartner: businessPartnerId }));
+
+      if (!bp) {
+        return { valid: false, message: `Business Partner ${businessPartnerId} not found` };
+      }
+      if (bp.BusinessPartnerIsBlocked) {
+        return { valid: false, message: `Business Partner ${businessPartnerId} is blocked` };
+      }
+      return { valid: true, bp };
+    } catch (error) {
+      console.error('Error validating BP:', error);
+      return { valid: false, message: `Error validating Business Partner: ${error.message}` };
+    }
+  }
+
+  // Create Participant Action
+  this.on('createParticipant', async (req) => {
+    const { BusinessPartnerID, FirstName, LastName, Email, Phone } = req.data;
+
+    try {
+      // 1. Validate BP exists
+      const bpValidation = await validateBusinessPartner(BusinessPartnerID);
+      if (!bpValidation.valid) {
+        return req.error(400, bpValidation.message);
+      }
+
+      // 2. Check if participant already exists
+      const existing = await SELECT.one.from(Participants)
+        .where({ BusinessPartnerID: BusinessPartnerID });
+
+      if (existing) {
+        return req.error(400, `Participant with Business Partner ID ${BusinessPartnerID} already exists`);
+      }
+
+      // 3. Get the next ID
+      const maxId = await SELECT.one`max(ID) as maxId`.from(Participants);
+      const nextId = (maxId?.maxId || 0) + 1;
+
+      // 4. Create new participant with ID
+      const result = await INSERT.into(Participants).entries({
+        ID: nextId,
+        BusinessPartnerID,
+        FirstName,
+        LastName,
+        Email,
+        Phone
+      });
+
+      // 5. Return the created participant
+      return SELECT.one.from(Participants)
+        .where({ ID: nextId });
+
+    } catch (error) {
+      console.error('Error creating participant:', error);
+      return req.error(500, `Error creating participant: ${error.message}`);
+    }
+  });
 
   // BOUND actions for Events
   this.on("cancelEvent", async (req) => {
@@ -75,8 +136,6 @@ module.exports = cds.service.impl(async function () {
       return req.error(500, `Error reopening event: ${error.message}`);
     }
   });
-  // Log entity definitions on service init
-  console.log('EventParticipants definition:', cds.model.definitions['sap.cap.eventmanagement.EventParticipants']);
 
   // BOUND actions for Participants
   this.on("fetchParticipantDetails", Participants, async (req) => {

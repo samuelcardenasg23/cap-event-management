@@ -35,6 +35,11 @@ service EventCatalog {
     entity EventParticipants as projection on my.EventParticipants;
 
     // UNBOUND actions/functions - service level
+    action   createParticipant(BusinessPartnerID : String,
+                               FirstName : String,
+                               LastName : String,
+                               Email : String,
+                               Phone : String)       returns Participants;
 
     // Register participant for an event
     @cds.doc: 'Register a participant for a specific event'
@@ -71,8 +76,8 @@ service EventCatalog {
     };
 
     @cds.doc: 'Get all participants for a specific event'
-    function getEventParticipants(eventId: Integer) returns {
-        event: EventInfo;
-        participants: many ParticipantInfo;
+    function getEventParticipants(eventId : Integer) returns {
+        event : EventInfo;
+        participants : many ParticipantInfo;
     };
 }

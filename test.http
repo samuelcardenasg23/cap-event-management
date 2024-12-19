@@ -144,3 +144,15 @@ Content-Type: application/json
 
 ### Get Event Participants using Function
 GET {{host}}/odata/v4/event-catalog/getEventParticipants(eventId=1)
+
+### Create Participant
+POST {{host}}/odata/v4/event-catalog/createParticipant
+Content-Type: application/json
+
+{
+    "BusinessPartnerID": "1000000",
+    "FirstName": "Vito",
+    "LastName": "Corleone",
+    "Email": "vito@example.com",
+    "Phone": "1234567890"
+}
