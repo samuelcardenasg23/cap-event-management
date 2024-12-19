@@ -1,5 +1,6 @@
 ### Variables
 @host = http://localhost:4004
+@app = https://7c03d547trial-dev-cap-event-management-srv.cfapps.us10-001.hana.ondemand.com
 @eventId = 1
 @participantId = 1
 
@@ -113,3 +114,65 @@ content-type: application/json
 
 ### Reopen Event (Bound Action)
 POST {{host}}/odata/v4/event-catalog/Events({{eventId}})/reopenEvent
+
+### =================== FLOW TEST APP ROUTE ===================
+### Create new event
+POST {{app}}/odata/v4/event-catalog/Events
+content-type: application/json
+
+{
+    "ID": 1,
+    "Name": "New SAP Event",
+    "StartDate": "2024-12-19",
+    "EndDate": "2024-12-20",
+    "Location": "Paris, France",
+    "Description": "New event description",
+    "IsActive": true,
+    "IsCancelled": false
+}
+
+### Create Participant
+POST {{app}}/odata/v4/event-catalog/createParticipant
+Content-Type: application/json
+
+{
+    "BusinessPartnerID": "1000000",
+    "FirstName": "Vito",
+    "LastName": "Corleone",
+    "Email": "vito@example.com",
+    "Phone": "1234567890"
+}
+
+### Register Participant
+POST {{app}}/odata/v4/event-catalog/registerParticipant
+Content-Type: application/json
+
+{
+    "eventId": 1,
+    "participantId": 7
+}
+
+### Get Event Participants using Function
+GET {{app}}/odata/v4/event-catalog/getEventParticipants(eventId=1)
+
+### Update Participant
+POST {{app}}/odata/v4/event-catalog/Participants(4)/updateParticipant
+Content-Type: application/json
+
+{
+    "FirstName": "Vito",
+    "LastName": "Corleone",
+    "Email": "godfather@example.com",
+    "Phone": "3333333333"
+}
+
+### Cancel Event (Bound Action)
+POST {{app}}/odata/v4/event-catalog/Events({{eventId}})/cancelEvent
+content-type: application/json
+
+{
+    "reason": "Cancelled because of bad weather"
+}
+
+### Reopen Event (Bound Action)
+POST {{app}}/odata/v4/event-catalog/Events({{eventId}})/reopenEvent
